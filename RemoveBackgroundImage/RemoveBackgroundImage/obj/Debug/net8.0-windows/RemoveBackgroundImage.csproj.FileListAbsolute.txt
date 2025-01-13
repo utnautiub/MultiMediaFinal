@@ -1,0 +1,17 @@
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\bin\Debug\net8.0-windows\RemoveBackgroundImage.exe
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\bin\Debug\net8.0-windows\RemoveBackgroundImage.deps.json
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\bin\Debug\net8.0-windows\RemoveBackgroundImage.runtimeconfig.json
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\bin\Debug\net8.0-windows\RemoveBackgroundImage.dll
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\bin\Debug\net8.0-windows\RemoveBackgroundImage.pdb
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.RemoveBackgroundImage.resources
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.csproj.GenerateResource.cache
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.AssemblyInfoInputs.cache
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.AssemblyInfo.cs
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.csproj.CoreCompileInputs.cache
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.sourcelink.json
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.dll
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\refint\RemoveBackgroundImage.dll
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.pdb
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\RemoveBackgroundImage.genruntimeconfig.cache
+D:\Code\MultiMediaFinal\RemoveBackgroundImage\RemoveBackgroundImage\obj\Debug\net8.0-windows\ref\RemoveBackgroundImage.dll
