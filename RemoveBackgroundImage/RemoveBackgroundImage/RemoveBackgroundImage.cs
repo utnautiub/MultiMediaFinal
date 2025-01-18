@@ -7,8 +7,8 @@ namespace RemoveBackgroundImage
 {
     public partial class RemoveBackgroundImage : Form
     {
-        private Bitmap originalImage; 
-        private Bitmap processedImage; 
+        private Bitmap originalImage;
+        private Bitmap processedImage;
 
         public RemoveBackgroundImage()
         {
@@ -59,7 +59,7 @@ namespace RemoveBackgroundImage
 
             // Lưu ảnh gốc tạm thời để xử lý bằng Python
             string inputPath = "temp_input.png";
-            string outputPath = "temp_output.png";
+            string outputPath = "temp_output.png"; // Lưu ảnh sau xử lý không nền
 
             try
             {
@@ -98,13 +98,82 @@ namespace RemoveBackgroundImage
                     return;
                 }
 
-                // Cập nhật ảnh đã xử lý
+                // Cập nhật ảnh đã xử lý (không nền)
                 processedImage = new Bitmap(outputPath);
                 pictureBoxProcessed.Image = processedImage;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi chạy script Python: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnChangeBackground_Click(object sender, EventArgs e)
+        {
+            if (processedImage == null)
+            {
+                MessageBox.Show("Hãy xử lý ảnh trước khi thay nền!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string backgroundPath = ofd.FileName; // Đường dẫn ảnh nền mới
+                    string outputWithBackgroundPath = "temp_output_with_background.png"; // Đường dẫn tạm cho ảnh kết quả
+
+                    try
+                    {
+                        // Giải phóng ảnh cũ nếu tồn tại
+                        if (processedImage != null)
+                        {
+                            processedImage.Dispose();
+                            processedImage = null;
+                        }
+
+                        // Gọi script Python để thêm nền
+                        string pythonPath = "python"; // Đảm bảo rằng Python đã được thêm vào PATH
+                        string scriptPath = "main.py"; // Đường dẫn đến file Python
+
+                        string arguments = $"-m 5 -i \"temp_output.png\" -b \"{backgroundPath}\" -o \"{outputWithBackgroundPath}\"";
+
+                        Process process = new Process();
+                        process.StartInfo.FileName = pythonPath;
+                        process.StartInfo.Arguments = $"{scriptPath} {arguments}";
+                        process.StartInfo.RedirectStandardOutput = true;
+                        process.StartInfo.RedirectStandardError = true;
+                        process.StartInfo.UseShellExecute = false;
+                        process.StartInfo.CreateNoWindow = true;
+
+                        process.Start();
+                        string output = process.StandardOutput.ReadToEnd();
+                        string error = process.StandardError.ReadToEnd();
+                        process.WaitForExit();
+
+                        if (!string.IsNullOrEmpty(error))
+                        {
+                            MessageBox.Show($"Lỗi trong quá trình xử lý:\n{error}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Kiểm tra và tải ảnh kết quả mới
+                        if (File.Exists(outputWithBackgroundPath))
+                        {
+                            processedImage = new Bitmap(outputWithBackgroundPath);
+                            pictureBoxProcessed.Image = processedImage;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy ảnh kết quả sau khi thêm nền!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi chạy script Python: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
@@ -177,6 +246,5 @@ namespace RemoveBackgroundImage
             int y = (containerRect.Height - drawHeight) / 2;
             return new Rectangle(x, y, drawWidth, drawHeight);
         }
-
     }
 }

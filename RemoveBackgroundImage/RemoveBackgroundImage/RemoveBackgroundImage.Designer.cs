@@ -109,6 +109,7 @@
             btnChangeBackground.TabIndex = 2;
             btnChangeBackground.Text = "Thay Nền Ảnh";
             btnChangeBackground.UseVisualStyleBackColor = true;
+            btnChangeBackground.Click += btnChangeBackground_Click;
             // 
             // comboRemoveBackground
             // 
