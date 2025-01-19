@@ -1,6 +1,5 @@
 import numpy as np
 import argparse
-import imageio.v2 as imageio
 from scipy.ndimage import binary_fill_holes
 from PIL import Image
 
@@ -78,9 +77,9 @@ def apply_edge_detection(image):
 
 # 4. Kết hợp cả 3
 def combine_methods(image):
-    mask1 = apply_edge_detection(image)
+    mask1 = apply_thresholding(image)
     mask2 = apply_color_space(image)
-    mask3 = apply_thresholding(image)
+    mask3 = apply_edge_detection(image)
     combined_mask = np.logical_and(np.logical_or(mask1, mask2), mask3)
     return (combined_mask * 255).astype(np.uint8)
 
@@ -147,10 +146,29 @@ def create_transparent_output(image, edge_mask):
     return rgba_image
 
 
+# def create_inside_mask(edge_mask):
+#     filled = edge_mask.copy()
+#     h, w = edge_mask.shape
+#     for i in range(h):
+#         for j in range(w):
+#             if i == 0 or j == 0 or i == h - 1 or j == w - 1:
+#                 if edge_mask[i, j] == 0:
+#                     flood_fill(filled, i, j)
+#     return np.logical_not(filled).astype(np.uint8) * 255
+
 def create_inside_mask(edge_mask):
     # Điền vào các vùng bên trong đường biên
     inside_mask = binary_fill_holes(edge_mask > 0).astype(np.uint8) * 255
     return inside_mask
+
+def flood_fill(image, i, j):
+    h, w = image.shape
+    stack = [(i, j)]
+    while stack:
+        x, y = stack.pop()
+        if 0 <= x < h and 0 <= y < w and image[x, y] == 0:
+            image[x, y] = 255
+            stack.extend([(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)])
 
 def add_background(foreground_path, background_path, output_path):
     # Đọc ảnh foreground (ảnh đã tách nền)
@@ -184,29 +202,29 @@ def main():
     )
     args = parser.parse_args()
 
+    image = np.array(Image.open(args.input).convert("RGB"))
+
     if args.method == 1:
-        mask = apply_thresholding(imageio.imread(args.input).astype(np.float32))
-        transparent_output = create_transparent_output(imageio.imread(args.input), mask)
-        imageio.imwrite(args.output, transparent_output.astype(np.uint8))
+        mask = apply_thresholding(image)
     elif args.method == 2:
-        mask = apply_color_space(imageio.imread(args.input).astype(np.float32))
-        transparent_output = create_transparent_output(imageio.imread(args.input), mask)
-        imageio.imwrite(args.output, transparent_output.astype(np.uint8))
+        mask = apply_color_space(image)
     elif args.method == 3:
-        mask = apply_edge_detection(imageio.imread(args.input).astype(np.float32))
-        transparent_output = create_transparent_output(imageio.imread(args.input), mask)
-        imageio.imwrite(args.output, transparent_output.astype(np.uint8))
+        mask = apply_edge_detection(image)
     elif args.method == 4:
-        mask = combine_methods(imageio.imread(args.input).astype(np.float32))
-        transparent_output = create_transparent_output(imageio.imread(args.input), mask)
-        imageio.imwrite(args.output, transparent_output.astype(np.uint8))
+        mask = combine_methods(image)
     elif args.method == 5:
         if not args.background:
             print("Error: Background image path is required for method 5.")
             return
         add_background(args.input, args.background, args.output)
+        return
     else:
         print("Error: Invalid method selected!")
+        return
+
+    transparent_output = create_transparent_output(image, mask)
+    output_image = Image.fromarray(transparent_output.astype(np.uint8))
+    output_image.save(args.output, "PNG")
 
 if __name__ == "__main__":
     main()

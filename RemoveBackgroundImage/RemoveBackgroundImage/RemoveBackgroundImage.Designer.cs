@@ -36,6 +36,14 @@
             btnSaveImage = new Button();
             btnChangeBackground = new Button();
             comboRemoveBackground = new ComboBox();
+            btnBrowseInputVideo = new Button();
+            btnBrowseBackgroundImage = new Button();
+            btnBrowseOutputVideo = new Button();
+            txtInputVideo = new TextBox();
+            txtBackgroundImage = new TextBox();
+            txtOutputVideo = new TextBox();
+            btnRemove = new Button();
+            txtStatus = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxOriginal).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxProcessed).BeginInit();
             SuspendLayout();
@@ -123,15 +131,93 @@
             comboRemoveBackground.Size = new Size(142, 29);
             comboRemoveBackground.TabIndex = 1;
             // 
+            // btnBrowseInputVideo
+            // 
+            btnBrowseInputVideo.Location = new Point(34, 453);
+            btnBrowseInputVideo.Name = "btnBrowseInputVideo";
+            btnBrowseInputVideo.Size = new Size(142, 29);
+            btnBrowseInputVideo.TabIndex = 0;
+            btnBrowseInputVideo.Text = "Chọn Video";
+            btnBrowseInputVideo.UseVisualStyleBackColor = true;
+            btnBrowseInputVideo.Click += btnBrowseInputVideo_Click;
+            // 
+            // btnBrowseBackgroundImage
+            // 
+            btnBrowseBackgroundImage.Location = new Point(34, 499);
+            btnBrowseBackgroundImage.Name = "btnBrowseBackgroundImage";
+            btnBrowseBackgroundImage.Size = new Size(142, 29);
+            btnBrowseBackgroundImage.TabIndex = 0;
+            btnBrowseBackgroundImage.Text = "Chọn Ảnh Nền";
+            btnBrowseBackgroundImage.UseVisualStyleBackColor = true;
+            btnBrowseBackgroundImage.Click += btnBrowseBackgroundImage_Click;
+            // 
+            // btnBrowseOutputVideo
+            // 
+            btnBrowseOutputVideo.Location = new Point(34, 548);
+            btnBrowseOutputVideo.Name = "btnBrowseOutputVideo";
+            btnBrowseOutputVideo.Size = new Size(142, 29);
+            btnBrowseOutputVideo.TabIndex = 0;
+            btnBrowseOutputVideo.Text = "Vị Trí Lưu";
+            btnBrowseOutputVideo.UseVisualStyleBackColor = true;
+            btnBrowseOutputVideo.Click += btnBrowseOutputVideo_Click;
+            // 
+            // txtInputVideo
+            // 
+            txtInputVideo.Location = new Point(222, 454);
+            txtInputVideo.Name = "txtInputVideo";
+            txtInputVideo.Size = new Size(328, 29);
+            txtInputVideo.TabIndex = 4;
+            // 
+            // txtBackgroundImage
+            // 
+            txtBackgroundImage.Location = new Point(222, 500);
+            txtBackgroundImage.Name = "txtBackgroundImage";
+            txtBackgroundImage.Size = new Size(328, 29);
+            txtBackgroundImage.TabIndex = 4;
+            // 
+            // txtOutputVideo
+            // 
+            txtOutputVideo.Location = new Point(222, 549);
+            txtOutputVideo.Name = "txtOutputVideo";
+            txtOutputVideo.Size = new Size(328, 29);
+            txtOutputVideo.TabIndex = 4;
+            // 
+            // btnRemove
+            // 
+            btnRemove.Location = new Point(596, 486);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(142, 55);
+            btnRemove.TabIndex = 3;
+            btnRemove.Text = "Xóa Phông Video";
+            btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += btnRemove_Click;
+            // 
+            // txtStatus
+            // 
+            txtStatus.AutoSize = true;
+            txtStatus.Location = new Point(615, 552);
+            txtStatus.Name = "txtStatus";
+            txtStatus.Size = new Size(103, 21);
+            txtStatus.TabIndex = 5;
+            txtStatus.Text = "Thành Công";
+            // 
             // RemoveBackgroundImage
             // 
             AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(774, 458);
+            ClientSize = new Size(774, 597);
+            Controls.Add(txtStatus);
+            Controls.Add(txtOutputVideo);
+            Controls.Add(txtBackgroundImage);
+            Controls.Add(txtInputVideo);
             Controls.Add(comboRemoveBackground);
+            Controls.Add(btnRemove);
             Controls.Add(btnSaveImage);
             Controls.Add(btnChangeBackground);
+            Controls.Add(btnBrowseOutputVideo);
+            Controls.Add(btnBrowseBackgroundImage);
+            Controls.Add(btnBrowseInputVideo);
             Controls.Add(btnLoadImage);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -160,5 +246,13 @@
         private Button btnSaveImage;
         private Button btnChangeBackground;
         private ComboBox comboRemoveBackground;
+        private Button btnBrowseInputVideo;
+        private Button btnBrowseBackgroundImage;
+        private Button btnBrowseOutputVideo;
+        private TextBox txtInputVideo;
+        private TextBox txtBackgroundImage;
+        private TextBox txtOutputVideo;
+        private Button btnRemove;
+        private Label txtStatus;
     }
 }

@@ -13,6 +13,7 @@ namespace RemoveBackgroundImage
         public RemoveBackgroundImage()
         {
             InitializeComponent();
+            txtStatus.Text = "";
 
             // Thêm các phương pháp vào ComboBox
             comboRemoveBackground.Items.Add("Thresholding");
@@ -245,6 +246,107 @@ namespace RemoveBackgroundImage
             int x = (containerRect.Width - drawWidth) / 2;
             int y = (containerRect.Height - drawHeight) / 2;
             return new Rectangle(x, y, drawWidth, drawHeight);
+        }
+
+        private void btnBrowseInputVideo_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Video Files|*.mp4;*.avi;*.mov;*.wmv";
+                ofd.RestoreDirectory = true; // Giữ thư mục trước đó
+                ofd.Multiselect = false; // Không cho chọn nhiều file
+                ofd.Title = "Chọn file video đầu vào"; // Đặt tiêu đề dialog
+                if (ofd.ShowDialog(this) == DialogResult.OK) // 'this' làm chủ sở hữu
+                {
+                    txtInputVideo.Text = ofd.FileName;
+                }
+            }
+        }
+
+        private void btnBrowseBackgroundImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    txtBackgroundImage.Text = ofd.FileName;
+                }
+            }
+        }
+
+        private void btnBrowseOutputVideo_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Video Files|*.mp4";
+                sfd.DefaultExt = "mp4";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    txtOutputVideo.Text = sfd.FileName;
+                }
+            }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            string inputVideoPath = txtInputVideo.Text;
+            string backgroundImagePath = txtBackgroundImage.Text;
+            string outputVideoPath = txtOutputVideo.Text;
+
+            // Kiểm tra các đường dẫn
+            if (string.IsNullOrEmpty(inputVideoPath) || !File.Exists(inputVideoPath))
+            {
+                MessageBox.Show("Vui lòng chọn video đầu vào hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(backgroundImagePath) || !File.Exists(backgroundImagePath))
+            {
+                MessageBox.Show("Vui lòng chọn ảnh nền hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(outputVideoPath))
+            {
+                MessageBox.Show("Vui lòng chọn nơi lưu video đầu ra.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                // Gọi script Python
+                string pythonPath = "python";
+                string scriptPath = "main.py"; // Thay đổi nếu cần
+                string arguments = $"-m 6 -i \"{inputVideoPath}\" -o \"{outputVideoPath}\" -b \"{backgroundImagePath}\"";
+
+                Process process = new Process();
+                process.StartInfo.FileName = pythonPath;
+                process.StartInfo.Arguments = $"{scriptPath} {arguments}";
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+
+                process.Start();
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                if (!string.IsNullOrEmpty(error))
+                {
+                    MessageBox.Show($"Lỗi trong quá trình xử lý:\n{error}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Hiển thị thông báo thành công
+                txtStatus.Text = "Thành công";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

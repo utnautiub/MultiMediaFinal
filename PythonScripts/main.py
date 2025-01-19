@@ -1,7 +1,7 @@
 import numpy as np
 import argparse
-import imageio.v2 as imageio
 from scipy.ndimage import binary_fill_holes
+from PIL import Image
 
 
 def apply_thresholding(image):
@@ -146,30 +146,64 @@ def create_transparent_output(image, edge_mask):
     return rgba_image
 
 
+# def create_inside_mask(edge_mask):
+#     filled = edge_mask.copy()
+#     h, w = edge_mask.shape
+#     for i in range(h):
+#         for j in range(w):
+#             if i == 0 or j == 0 or i == h - 1 or j == w - 1:
+#                 if edge_mask[i, j] == 0:
+#                     flood_fill(filled, i, j)
+#     return np.logical_not(filled).astype(np.uint8) * 255
+
 def create_inside_mask(edge_mask):
     # Điền vào các vùng bên trong đường biên
     inside_mask = binary_fill_holes(edge_mask > 0).astype(np.uint8) * 255
     return inside_mask
 
+def flood_fill(image, i, j):
+    h, w = image.shape
+    stack = [(i, j)]
+    while stack:
+        x, y = stack.pop()
+        if 0 <= x < h and 0 <= y < w and image[x, y] == 0:
+            image[x, y] = 255
+            stack.extend([(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)])
+
+def add_background(foreground_path, background_path, output_path):
+    # Đọc ảnh foreground (ảnh đã tách nền)
+    foreground = Image.open(foreground_path).convert("RGBA")
+
+    # Đọc ảnh nền
+    background = Image.open(background_path).convert("RGBA")
+    background = background.resize(foreground.size)
+
+    # Lấy kênh alpha của foreground
+    alpha = foreground.split()[-1]
+
+    # Kết hợp ảnh foreground và background dựa trên alpha
+    combined = Image.composite(foreground, background, alpha)
+
+    # Lưu kết quả
+    combined.save(output_path, "PNG")
+
 
 def main():
-    # Thiết lập argparse
     parser = argparse.ArgumentParser(description="Image Background Removal")
     parser.add_argument(
-        "-m",
-        "--method",
-        type=int,
-        required=True,
-        help="Method: 1 = Thresholding, 2 = Color Space, 3 = Edge Detection, 4 = Combine All",
+        "-m", "--method", type=int, required=True,
+        help="Method: 1 = Thresholding, 2 = Color Space, 3 = Edge Detection, 4 = Combine All, 5 = Add Background"
     )
     parser.add_argument("-i", "--input", type=str, required=True, help="Input image path")
     parser.add_argument("-o", "--output", type=str, required=True, help="Output image path")
+    parser.add_argument(
+        "-b", "--background", type=str, required=False,
+        help="Background image path (required for method 5)"
+    )
     args = parser.parse_args()
 
-    # Đọc ảnh đầu vào
-    image = imageio.imread(args.input).astype(np.float32)
+    image = np.array(Image.open(args.input).convert("RGB"))
 
-    # Áp dụng phương pháp xử lý
     if args.method == 1:
         mask = apply_thresholding(image)
     elif args.method == 2:
@@ -178,23 +212,19 @@ def main():
         mask = apply_edge_detection(image)
     elif args.method == 4:
         mask = combine_methods(image)
+    elif args.method == 5:
+        if not args.background:
+            print("Error: Background image path is required for method 5.")
+            return
+        add_background(args.input, args.background, args.output)
+        return
     else:
         print("Error: Invalid method selected!")
         return
 
-    # Tạo ảnh đầu ra với nền trong suốt
     transparent_output = create_transparent_output(image, mask)
-
-    # Lưu ảnh RGBA (PNG hỗ trợ alpha)
-    output_format = args.output.split(".")[-1].lower()
-    if output_format == "png":
-        imageio.imwrite(args.output, transparent_output.astype(np.uint8))
-    else:
-        print("Error: Only PNG format supports RGBA. Please use a .png output file.")
-        return
-
-    print(f"Transparent output saved at {args.output}")
-
+    output_image = Image.fromarray(transparent_output.astype(np.uint8))
+    output_image.save(args.output, "PNG")
 
 if __name__ == "__main__":
     main()
