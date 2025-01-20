@@ -130,6 +130,7 @@
             comboRemoveBackground.Name = "comboRemoveBackground";
             comboRemoveBackground.Size = new Size(142, 29);
             comboRemoveBackground.TabIndex = 1;
+            comboRemoveBackground.SelectedIndexChanged += ComboRemoveBackground_SelectedIndexChanged;
             // 
             // btnBrowseInputVideo
             // 
