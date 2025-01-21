@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Code\\MultiMediaFinal\\RemoveBackgroundImage\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A6F77CD6-461F-4EBD-BA08-381B12BCE306}|RemoveBackgroundImage\\RemoveBackgroundImage.csproj|d:\\code\\multimediafinal\\removebackgroundimage\\removebackgroundimage\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A6F77CD6-461F-4EBD-BA08-381B12BCE306}|RemoveBackgroundImage\\RemoveBackgroundImage.csproj|solutionrelative:removebackgroundimage\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A6F77CD6-461F-4EBD-BA08-381B12BCE306}|RemoveBackgroundImage\\RemoveBackgroundImage.csproj|d:\\code\\multimediafinal\\removebackgroundimage\\removebackgroundimage\\removebackgroundimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A6F77CD6-461F-4EBD-BA08-381B12BCE306}|RemoveBackgroundImage\\RemoveBackgroundImage.csproj|solutionrelative:removebackgroundimage\\removebackgroundimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6F77CD6-461F-4EBD-BA08-381B12BCE306}|RemoveBackgroundImage\\RemoveBackgroundImage.csproj|d:\\code\\multimediafinal\\removebackgroundimage\\removebackgroundimage\\removebackgroundimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6F77CD6-461F-4EBD-BA08-381B12BCE306}|RemoveBackgroundImage\\RemoveBackgroundImage.csproj|solutionrelative:removebackgroundimage\\removebackgroundimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,31 +18,31 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Code\\MultiMediaFinal\\RemoveBackgroundImage\\RemoveBackgroundImage\\Program.cs",
-              "RelativeDocumentMoniker": "RemoveBackgroundImage\\Program.cs",
-              "ToolTip": "D:\\Code\\MultiMediaFinal\\RemoveBackgroundImage\\RemoveBackgroundImage\\Program.cs",
-              "RelativeToolTip": "RemoveBackgroundImage\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "RemoveBackgroundImage.cs",
+              "DocumentMoniker": "D:\\Code\\MultiMediaFinal\\RemoveBackgroundImage\\RemoveBackgroundImage\\RemoveBackgroundImage.cs",
+              "RelativeDocumentMoniker": "RemoveBackgroundImage\\RemoveBackgroundImage.cs",
+              "ToolTip": "D:\\Code\\MultiMediaFinal\\RemoveBackgroundImage\\RemoveBackgroundImage\\RemoveBackgroundImage.cs",
+              "RelativeToolTip": "RemoveBackgroundImage\\RemoveBackgroundImage.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAgwC8AAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-13T23:13:27.53Z",
+              "WhenOpened": "2025-01-18T23:26:42.54Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "RemoveBackgroundImage.cs [Design]",
               "DocumentMoniker": "D:\\Code\\MultiMediaFinal\\RemoveBackgroundImage\\RemoveBackgroundImage\\RemoveBackgroundImage.cs",
               "RelativeDocumentMoniker": "RemoveBackgroundImage\\RemoveBackgroundImage.cs",
               "ToolTip": "D:\\Code\\MultiMediaFinal\\RemoveBackgroundImage\\RemoveBackgroundImage\\RemoveBackgroundImage.cs [Design]",
               "RelativeToolTip": "RemoveBackgroundImage\\RemoveBackgroundImage.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-13T23:10:06.519Z",
+              "WhenOpened": "2025-01-18T23:26:32.033Z",
               "EditorCaption": " [Design]"
             }
           ]
